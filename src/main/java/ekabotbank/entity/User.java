@@ -1,8 +1,7 @@
 package ekabotbank.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -11,7 +10,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class UserEntity {
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String username;
 
     private String password;
