@@ -1,9 +1,6 @@
 package ekabotbank.globalexceptionhandler;
 
-import ekabotbank.exception.AccountNotFoundException;
-import ekabotbank.exception.InsufficientBalanceException;
-import ekabotbank.exception.InvalidAmountException;
-import ekabotbank.exception.MinimumOpeningBalanceException;
+import ekabotbank.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +27,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InsufficientBalanceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleInsufficientBalanceException(InsufficientBalanceException e) {
+        return e.getMessage();
+    }
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleUsernameAlreadyExistsException(UsernameAlreadyExistsException e) {
         return e.getMessage();
     }
 }
