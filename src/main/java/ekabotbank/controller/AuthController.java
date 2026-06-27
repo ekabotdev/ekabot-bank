@@ -1,6 +1,8 @@
 package ekabotbank.controller;
 
 
+import ekabotbank.dto.LoginRequest;
+import ekabotbank.dto.LoginResponse;
 import ekabotbank.dto.RegisterRequest;
 import ekabotbank.dto.RegisterResponse;
 import ekabotbank.service.UserService;
@@ -21,5 +23,9 @@ public class AuthController {
     @PostMapping("/register")
     public RegisterResponse registerUser( @Valid @RequestBody RegisterRequest registerRequest) {
         return userService.register(registerRequest);
+    }
+    @PostMapping("/login")
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
     }
 }
