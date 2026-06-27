@@ -1,9 +1,12 @@
 package ekabotbank.service;
 
 
+import ekabotbank.dto.LoginRequest;
+import ekabotbank.dto.LoginResponse;
 import ekabotbank.dto.RegisterRequest;
 import ekabotbank.dto.RegisterResponse;
 import ekabotbank.entity.User;
+import ekabotbank.exception.InvalidCredentialsException;
 import ekabotbank.exception.UsernameAlreadyExistsException;
 import ekabotbank.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,6 +38,19 @@ public class UserService {
         return new RegisterResponse(
                 savedUser.getUsername(),
                 savedUser.getRole()
+        );
+    }
+    public LoginResponse login (LoginRequest loginRequest) {
+        User user = userRepository.findByUsername(loginRequest.getUsername());
+
+        if (user == null) {
+            throw new InvalidCredentialsException("Invalid username or password");
+        }
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid username or password");
+        }
+        return new LoginResponse(
+                "Login successful"
         );
     }
 
