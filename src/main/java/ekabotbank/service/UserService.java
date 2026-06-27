@@ -6,13 +6,16 @@ import ekabotbank.dto.RegisterResponse;
 import ekabotbank.entity.User;
 import ekabotbank.exception.UsernameAlreadyExistsException;
 import ekabotbank.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     public RegisterResponse register (RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
@@ -24,7 +27,7 @@ public class UserService {
         User user = new User();
 
         user.setUsername(registerRequest.getUsername());
-        user.setPassword(registerRequest.getPassword());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setRole("CUSTOMER");
 
         User savedUser = userRepository.save(user);
