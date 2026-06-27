@@ -34,5 +34,10 @@ public class GlobalExceptionHandler {
     public String handleUsernameAlreadyExistsException(UsernameAlreadyExistsException e) {
         return e.getMessage();
     }
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidCredentialsException(InvalidCredentialsException e) {
+        return e.getMessage();
+    }
 }
 
