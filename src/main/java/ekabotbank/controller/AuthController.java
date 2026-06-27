@@ -18,4 +18,8 @@ public class AuthController {
     public AuthController(UserService userService) {
         this.userService = userService;
     }
+    @PostMapping("/register")
+    public RegisterResponse registerUser( @Valid @RequestBody RegisterRequest registerRequest) {
+        return userService.register(registerRequest);
+    }
 }
