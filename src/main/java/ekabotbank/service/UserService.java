@@ -9,17 +9,16 @@ import ekabotbank.entity.User;
 import ekabotbank.exception.InvalidCredentialsException;
 import ekabotbank.exception.UsernameAlreadyExistsException;
 import ekabotbank.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+
     public RegisterResponse register (RegisterRequest registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
 

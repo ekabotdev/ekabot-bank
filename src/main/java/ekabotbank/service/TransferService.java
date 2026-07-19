@@ -10,18 +10,17 @@ import ekabotbank.exception.InsufficientBalanceException;
 import ekabotbank.repository.AccountRepository;
 import ekabotbank.repository.TransactionRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class TransferService {
     public final AccountRepository accountRepository;
     public final TransactionRepository transactionRepository;
-    public TransferService(AccountRepository accountRepository, TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-        this.accountRepository = accountRepository;
-    }
+
     @Transactional
     public TransferResponse transfer(TransferRequest request) {
 

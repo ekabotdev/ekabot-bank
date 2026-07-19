@@ -10,6 +10,7 @@ import ekabotbank.exception.InsufficientBalanceException;
 import ekabotbank.exception.InvalidAmountException;
 import ekabotbank.exception.MinimumOpeningBalanceException;
 import ekabotbank.repository.AccountRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,13 +18,9 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
-
-    public AccountService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
-
 
     public AccountResponse createAccount(CreateAccountRequest request) {
         if (accountRepository.findByAccountNumber(request.getAccountNumber()) != null) {
